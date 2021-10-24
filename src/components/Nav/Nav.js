@@ -3,7 +3,7 @@ import { capitalizeFirstLetter } from '../../utils/helpers';
 
 function Nav(props) {
 
-    const {categories = [], currentCategory, setCurrentCategory} = props; 
+    const {categories = [], currentCategory, setCurrentCategory, contactSelected, setContactSelected} = props; 
 
     useEffect(() => {
         document.title = capitalizeFirstLetter(currentCategory.name);
@@ -19,19 +19,22 @@ function Nav(props) {
             <nav>
                 <ul className = "flex-row">
                     <li className="mx-2">
-                        <a data-testid="about" whref="#about">
+                        <a data-testid="about" whref="#about" onClick = {() => setContactSelected(false)}>
                             About Me
                         </a>
                     </li>
-                    <li>
-                        <span>Contact</span>
+                    <li className={`mx-2 ${contactSelected && 'navActive'}`}>
+                        <span onClick = {() => setContactSelected(true)}>Contact</span>
                     </li>
                     {categories.map(category => (
                         <li
-                            className = {`mx-1 ${currentCategory.name === category.name && 'nav-active'}`}
+                            className = {`mx-1 ${currentCategory.name === category.name &&  !contactSelected && 'navActive'}`}
                             key={category.name}
                         >
-                            <span onClick={() => setCurrentCategory(category)}>
+                            <span onClick={() => {
+                                setCurrentCategory(category);
+                                setContactSelected(false);
+                                }}>
                                 {category.name}
                             </span>
                         </li>
