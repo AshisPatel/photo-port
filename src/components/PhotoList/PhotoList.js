@@ -115,7 +115,7 @@ function PhotoList({ categoryName }) {
     return (
         <div>
             {
-                isModalOpen && <Modal currentPhoto={currentPhoto}/> 
+                isModalOpen && <Modal currentPhoto={currentPhoto} setIsModalOpen={setIsModalOpen}/> 
             }
             
             <div className="flex-row">
